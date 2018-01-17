@@ -26,7 +26,7 @@ switch ($action) {
 
     $password = password_hash($password, PASSWORD_DEFAULT);
 
-    $result = register_user($name, $email, $password);
+    $result = sign_up_user($name, $email, $password);
 
     if($result){
         $message = "$name, you are registered!";
@@ -36,6 +36,28 @@ switch ($action) {
 
     include 'views/login.php';
     exit();
+
+    break;
+
+  case 'Login':
+
+    $email = filter_input(INPUT_POST, 'email');
+    $password = filter_input(INPUT_POST, 'password');
+
+    // $user = get_org_by_username($org_username);
+
+    if (password_verify($password, $user['user'])){
+      $_SESSION['logged_in'] = TRUE;
+      $_SESSION['name'] = $user['name'];
+      $_SESSION['email'] = $user['email'];
+      $_SESSION['user_id'] = $user['user_id'];
+    }else{
+        $error = 'Login failed. Please try again.';
+        include 'views/account.php';
+        exit();
+    }
+
+    header('Location: .?action=account');
 
     break;
 
