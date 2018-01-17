@@ -11,14 +11,14 @@ if (filter_input(INPUT_POST, 'action')){
 
 switch ($action) {
 
-  case 'register':
+  case 'Sign Up':
 
     $name = trim(filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING));
-    $username = trim(filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING));
+    $email = trim(filter_input(INPUT_POST, 'email', FILTER_SANITIZE_STRING));
     $password = filter_input(INPUT_POST, 'passowrd');
 
     //validate the inputs
-    if(empty($name) || empty($username) || empty($password)){
+    if(empty($name) || empty($email) || empty($password)){
         $error = 'Some required fields are empty.';
         include 'views/register.php';
         exit();
@@ -26,7 +26,7 @@ switch ($action) {
 
     $password = password_hash($password, PASSWORD_DEFAULT);
 
-    $result = register_user($name, $username, $password);
+    $result = register_user($name, $email, $password);
 
     if($result){
         $message = "$name, you are registered!";
@@ -37,7 +37,7 @@ switch ($action) {
     include 'views/login.php';
     exit();
 
-  break;
+    break;
 
   default:
 
