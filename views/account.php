@@ -44,23 +44,25 @@
 
                   <h1 class="text-center">Login or Register</h1>
                   <br>
-                  <input type="text" name="name" value="" class="form-control" placeholder="Enter Name (ONLY FOR SIGN UP)">
-                  <br>
-                  <input type="text" name="email" value="" class="form-control" placeholder="Enter Email">
-                  <br>
-                  <input type="text" name="password" value="" class="form-control" placeholder="Enter Password">
-                </div>
-              </div>
-              <br>
-              <div class="row">
-                <div class="col-sm-12">
-                  <input type="submit" name="" value="Login" class="btn btn-primary" id="full-length">
-                </div>
-                <br><br>
-                <div class="col-sm-12">
-                  <input type="submit" name="" value="Sign Up" class="btn btn-primary" id="full-length">
-                </div>
-              </div>
+                  <form class="" name="action" method="post">
+                        <input type="text" name="name" value="" class="form-control" placeholder="Enter Name (ONLY FOR SIGN UP)">
+                        <br>
+                        <input type="text" name="email" value="" class="form-control" placeholder="Enter Email">
+                        <br>
+                        <input type="text" name="password" value="" class="form-control" placeholder="Enter Password">
+                      </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <input type="submit" name="action" value="Login" class="btn btn-primary" id="full-length">
+                      </div>
+                      <br><br>
+                      <div class="col-sm-12">
+                        <input type="submit" name="action" value="Sign Up" class="btn btn-primary" id="full-length">
+                      </div>
+                    </div>
+                  </form>
             </div>
         </main>
 
