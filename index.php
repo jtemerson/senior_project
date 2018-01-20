@@ -20,7 +20,7 @@ switch ($action) {
     //validate the inputs
     if(empty($name) || empty($email) || empty($password)){
         $error = 'Some required fields are empty.';
-        include 'views/register.php';
+        include 'views/login.php';
         exit();
     }
 
@@ -34,7 +34,7 @@ switch ($action) {
         $error = "Sorry $name, there was an error while trying to register you, please try again.";
     }
 
-    include 'views/account.php';
+    include 'views/login.php';
     exit();
 
     break;
@@ -52,12 +52,12 @@ switch ($action) {
       $_SESSION['name'] = $user['name'];
       $_SESSION['email'] = $user['email'];
       $_SESSION['user_id'] = $user['user_id'];
-      
+
       header('Location: .?action=account');
       exit();
     }else{
         $error = 'Login failed. Please try again.';
-        include 'views/account.php';
+        include 'views/login.php';
         exit();
     }
 
@@ -66,7 +66,7 @@ switch ($action) {
   default:
 
     if(!$_SESSION['logged_in']){
-      include_once 'views/account.php';
+      include_once 'views/login.php';
     }
     else{
       include_once 'views/pantry.php';
