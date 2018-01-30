@@ -51,7 +51,7 @@ switch ($action) {
       $_SESSION['logged_in'] = TRUE;
       $_SESSION['name'] = $user['name'];
       $_SESSION['email'] = $user['email'];
-      $_SESSION['user_id'] = $user['user_id'];
+      $_SESSION['user_id'] = $user['id'];
 
       header('Location: .?action=account');
       exit();
@@ -63,13 +63,101 @@ switch ($action) {
 
     break;
 
+  case 'pantry':
+
+    $user_id = $_SESSION['user_id'];
+
+    $pantries = get_pantries($user_id);
+
+    include 'views/pantries.php';
+
+    break;
+
+  case 'add_pantry':
+
+    $user_id = $_SESSION['user_id'];
+    $name = filter_input(INPUT_POST, 'name');
+
+    if(!$name){
+      $error = "If you would like to add a pantry, please enter a name.";
+      include 'views/pantries.php';
+      exit();
+    }
+
+    $result = add_pantry($user_id, $name);
+
+    if($result){
+
+    }else{
+        $error = "Sorry, $name could not be created";
+    }
+
+    header('Location: .?action=pantry');
+    exit();
+
+    break;
+
+  case 'items':
+
+    $pantry_id = filter_input(INPUT_GET, 'pantry_id', FILTER_VALIDATE_INT);
+    $pantry_name = filter_input(INPUT_GET, 'pantry_name');
+
+    $items = get_items($pantry_id);
+
+    include 'views/items.php';
+
+    break;
+
+  case 'add_item_page':
+
+    $pantry_id = filter_input(INPUT_POST, 'pantry_id', FILTER_VALIDATE_INT);
+
+    include 'views/add_item.php';
+
+    break;
+
+  case 'add_item':
+
+    $pantry_id = filter_input(INPUT_POST, 'pantry_id', FILTER_VALIDATE_INT);
+    $name = filter_input(INPUT_POST, 'name');
+    $quantity = filter_input(INPUT_POST, 'quantity');
+    $brand = filter_input(INPUT_POST, 'brand');
+    $barcode = filter_input(INPUT_POST, 'barcode');
+    $expiration = filter_input(INPUT_POST, 'expiration');
+    if(filter_input(INPUT_POST, 'shopping_list') == "yes"){
+      $shopping_list = 1;
+    }
+    else{
+      $shopping_list = 0;
+    }
+    $shopping_list_quantity = filter_input(INPUT_POST, 'shopping_list_quantity');
+
+    if(!$name){
+      $error = "If you would like to add an item, please enter a name.";
+      include 'views/add_item.php';
+      exit();
+    }
+
+    $result = add_item($pantry_id, $name, $quantity, $brand, $barcode, $expiration, $shopping_list, $shopping_list_quantity);
+
+    if($result){
+
+    }else{
+        $error = "Sorry, $name could not be created";
+    }
+
+    header('Location: .?action=items');
+    exit();
+
+    break;
+
   default:
 
     if(!$_SESSION['logged_in']){
       include_once 'views/login.php';
     }
     else{
-      include_once 'views/pantry.php';
+      header('Location: .?action=pantry');
     }
 
     break;
