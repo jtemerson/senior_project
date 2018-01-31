@@ -19,12 +19,12 @@
         <main class="container">
             <div class="row">
               <div class="col-sm-12">
-                <h1>Items in <?php echo $pantry_name; ?></h1>
-
+                <h1>Items in Shopping List</h1>
+                <br>
                 <div class="list-group">
-                  <?php foreach ($items as $item) : ?>
-                  <a href="?action=item_view&item_id=<?php echo $item['id'] ?>&pantry_id=<?php echo $pantry_id ?>&pantry_name=<?php echo $pantry_name ?>" class="list-group-item">
-                  <?php echo $item['name']; ?>
+                  <?php foreach ($shopping_list_items as $item) : ?>
+                  <a href="#" class="list-group-item">
+                  <?php echo $item['name'] . ' - ' . $item['shopping_list_quantity']; ?>
                   </a>
                   <?php endforeach; ?>
                 </div>
@@ -34,10 +34,8 @@
             <div class="row">
               <div class="col-sm-12">
                 <form action="." method="post">
-                  <input type="hidden" name="action" value="add_item_page">
-                  <input type="hidden" name="pantry_id" value="<?php echo $pantry_id ?>">
-                  <input type="hidden" name="pantry_name" value="<?php echo $pantry_name ?>">
-                  <input type="submit" value="Add Item" class="btn btn-primary" id="full-length">
+                  <input type="hidden" name="action" value="what_is_this">
+                  <input type="submit" value="Back" class="btn btn-primary" id="full-length">
                 </form>
               </div>
             </div>

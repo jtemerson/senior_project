@@ -133,6 +133,11 @@ switch ($action) {
     }
     $shopping_list_quantity = filter_input(INPUT_POST, 'shopping_list_quantity');
 
+    if(!$shopping_list_quantity){
+      $shopping_list_quantity = 0;
+    }
+
+
     if(!$name){
       $error = "If you would like to add an item, please enter a name.";
       include 'views/add_item.php';
@@ -156,6 +161,69 @@ switch ($action) {
 
     include 'views/items.php';
     exit();
+
+    break;
+
+  case 'item_view':
+
+    $item_id = filter_input(INPUT_GET, 'item_id');
+    $pantry_id = filter_input(INPUT_GET, 'pantry_id');
+    $pantry_name = filter_input(INPUT_GET, 'pantry_name');
+
+    $item = get_item($item_id);
+
+    include 'views/item_view.php';
+    exit;
+
+    break;
+
+  case 'edit_item':
+
+    $pantry_id = filter_input(INPUT_POST, 'pantry_id', FILTER_VALIDATE_INT);
+    $pantry_name = filter_input(INPUT_POST, 'pantry_name');
+    $item_id = filter_input(INPUT_POST, 'item_id', FILTER_VALIDATE_INT);
+    $name = filter_input(INPUT_POST, 'name');
+    $quantity = filter_input(INPUT_POST, 'quantity');
+    $brand = filter_input(INPUT_POST, 'brand');
+    $expiration = filter_input(INPUT_POST, 'expiration');
+    if(filter_input(INPUT_POST, 'shopping_list') == "yes"){
+      $shopping_list = 1;
+    }
+    else{
+      $shopping_list = 0;
+    }
+    $shopping_list_quantity = filter_input(INPUT_POST, 'shopping_list_quantity');
+
+    if(!$shopping_list_quantity){
+      $shopping_list_quantity = 0;
+    }
+
+    if(!$name){
+      $error = "If you would like to add an item, please enter a name.";
+      include 'views/add_item.php';
+      exit();
+    }
+
+    // echo $item_id . ', ' . $name . ', ' . $quantity . ', ' . $brand . ', ' . $expiration . ', ' . $shopping_list . ', ' . $shopping_list_quantity;
+    // exit;
+
+    $result = edit_item($item_id, $name, $quantity, $brand, $expiration, $shopping_list, $shopping_list_quantity);
+
+    $items = get_items($pantry_id);
+
+    include 'views/items.php';
+    exit();
+
+    break;
+
+  case 'shopping_list':
+
+    $pantry_id = filter_input(INPUT_POST, 'pantry_id', FILTER_VALIDATE_INT);
+
+    $shopping_list_items = get_shopping_list_items($pantry_id);
+
+    include 'views/shopping_list.php';
+    exit;
 
     break;
 

@@ -41,7 +41,8 @@
                   }
                 ?>
 
-
+                <h1 class="text-center">My Pantries</h1>
+                <br>
                 <div class="list-group">
                   <?php foreach ($pantries as $pantry) : ?>
                   <a href="?action=items&pantry_id=<?php echo $pantry['id']; ?>&pantry_name=<?php echo $pantry['name']; ?>" class="list-group-item">
@@ -59,6 +60,16 @@
                   <input type="text" class="form-control" name="name" placeholder="New Pantry">
                   <br>
                   <input type="submit" value="Add Pantry" class="btn btn-primary" id="full-length">
+                  <br>
+                </form>
+              </div>
+              <br><br>
+              <div class="col-sm-12">
+                <form action="." method="post">
+                  <input type="hidden" name="action" value="shopping_list">
+                  <input type="hidden" name="pantry_id" value="<?php echo $pantry['id']; ?>">
+                  <br>
+                  <input type="submit" value="Shopping List" class="btn btn-primary" id="full-length">
                 </form>
               </div>
             </div>

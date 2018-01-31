@@ -83,4 +83,45 @@
       return $result;
    }
 
+   function get_item($item_id){
+     global $db;
+     $query = 'SELECT * FROM items
+               WHERE id = :id';
+     $statement = $db->prepare($query);
+     $statement->bindValue(':id', $item_id);
+     $statement->execute();
+     $user = $statement->fetch();
+     $statement->closeCursor();
+     return $user;
+   }
+
+   function edit_item($item_id, $name, $quantity, $brand, $expiration, $shopping_list, $shopping_list_quantity){
+     global $db;
+    $query = 'UPDATE items
+                SET name = :name, quantity = :quantity, brand = :brand, expiration = :expiration, shopping_list = :shopping_list, shopping_list_quantity = :shopping_list_quantity
+                WHERE id = :item_id';
+    $statement = $db->prepare($query);
+    $statement->bindValue(':name', $name);
+    $statement->bindValue(':quantity', $quantity);
+    $statement->bindValue(':brand', $brand);
+    $statement->bindValue(':expiration', $expiration);
+    $statement->bindValue(':shopping_list', $shopping_list);
+    $statement->bindValue(':shopping_list_quantity', $shopping_list_quantity);
+    $statement->bindValue(':item_id', $item_id);
+    $statement->execute();
+    $statement->closeCursor();
+   }
+
+   function get_shopping_list_items($pantry_id){
+     global $db;
+     $query = 'SELECT * FROM items
+               WHERE pantry_id = :id AND shopping_list = 1' ;
+     $statement = $db->prepare($query);
+     $statement->bindValue(':id', $pantry_id);
+     $statement->execute();
+     $shopping_list_items = $statement->fetchAll();
+     $statement->closeCursor();
+     return $shopping_list_items;
+   }
+
 ?>
