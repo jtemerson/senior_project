@@ -24,17 +24,19 @@
                 <div class="list-group">
                   <?php foreach ($items as $item) : ?>
                   <a href="#" class="list-group-item">
-                  <?php echo $itme['name']; ?>
+                  <?php echo $item['name']; ?>
                   </a>
                   <?php endforeach; ?>
                 </div>
               </div>
             </div>
+            <br>
             <div class="row">
               <div class="col-sm-12">
                 <form action="." method="post">
                   <input type="hidden" name="action" value="add_item_page">
-                  <input type="hidden" name="pantry_id" value="<?php $pantry_id ?>">
+                  <input type="hidden" name="pantry_id" value="<?php echo $pantry_id ?>">
+                  <input type="hidden" name="pantry_name" value="<?php echo $pantry_name ?>">
                   <input type="submit" value="Add Item" class="btn btn-primary" id="full-length">
                 </form>
               </div>

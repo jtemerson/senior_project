@@ -111,6 +111,7 @@ switch ($action) {
   case 'add_item_page':
 
     $pantry_id = filter_input(INPUT_POST, 'pantry_id', FILTER_VALIDATE_INT);
+    $pantry_name = filter_input(INPUT_POST, 'pantry_name');
 
     include 'views/add_item.php';
 
@@ -119,10 +120,10 @@ switch ($action) {
   case 'add_item':
 
     $pantry_id = filter_input(INPUT_POST, 'pantry_id', FILTER_VALIDATE_INT);
+    $pantry_name = filter_input(INPUT_POST, 'pantry_name');
     $name = filter_input(INPUT_POST, 'name');
     $quantity = filter_input(INPUT_POST, 'quantity');
     $brand = filter_input(INPUT_POST, 'brand');
-    $barcode = filter_input(INPUT_POST, 'barcode');
     $expiration = filter_input(INPUT_POST, 'expiration');
     if(filter_input(INPUT_POST, 'shopping_list') == "yes"){
       $shopping_list = 1;
@@ -138,15 +139,22 @@ switch ($action) {
       exit();
     }
 
-    $result = add_item($pantry_id, $name, $quantity, $brand, $barcode, $expiration, $shopping_list, $shopping_list_quantity);
+    // echo $pantry_id . ', ' . $name . ', ' . $quantity . ', ' . $brand . ', ' . $barcode . ', ' . $expiration . ', ' . $shopping_list . ', ' . $shopping_list_quantity;
+    // exit;
+
+    $result = add_item($pantry_id, $name, $quantity, $brand, $expiration, $shopping_list, $shopping_list_quantity);
 
     if($result){
 
     }else{
         $error = "Sorry, $name could not be created";
+        include 'views/add_item.php';
+        exit;
     }
 
-    header('Location: .?action=items');
+    $items = get_items($pantry_id);
+
+    include 'views/items.php';
     exit();
 
     break;

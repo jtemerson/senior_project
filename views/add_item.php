@@ -19,18 +19,40 @@
         <main class="container">
           <div class="row">
             <div class="col-sm-12">
+
+              <?php
+                if($message){
+                    echo "<div class='row'>
+                            <div class='col-sm-12'>
+                              <div class='alert alert-success'>
+                                <b>$message</b>
+                              </div>
+                            </div>
+                          </div>";
+                }
+                if($error){
+                  echo "<div class='row'>
+                          <div class='col-sm-12'>
+                            <div class='alert alert-danger'>
+                              <b>$error</b>
+                            </div>
+                          </div>
+                        </div>";
+                }
+              ?>
+
+
               <form action="." method="post">
                 <input type="hidden" name="action" value="add_item">
                 <br>
-                <input type="hidden" name="pantry_id" value="<?php $pantry_id ?>">
+                <input type="hidden" name="pantry_id" value="<?php echo $pantry_id ?>">
+                <input type="hidden" name="pantry_name" value="<?php echo $pantry_name ?>">
                 <br>
                 <input type="text" class="form-control" name="name" placeholder="Name">
                 <br>
                 <input type="text" class="form-control" name="quantity" placeholder="Quantity">
                 <br>
                 <input type="text" class="form-control" name="brand" placeholder="Brand (optional)">
-                <br>
-                <input type="text" class="form-control" name="barcode" placeholder="Barcode (optional)">
                 <br>
                 <input type="date" class="form-control" name="expiration" placeholder="Expiration (optional)">
                 <br>

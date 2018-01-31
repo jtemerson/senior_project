@@ -65,16 +65,15 @@
       return $result;
    }
 
-   function add_item($pantry_id, $name, $quantity, $brand, $barcode, $expiration, $shopping_list, $shopping_list_quantity){
+   function add_item($pantry_id, $name, $quantity, $brand, $expiration, $shopping_list, $shopping_list_quantity){
      global $db;
-     $query = 'INSERT INTO items(pantry_id, name, quantity, brand, barcode, expiration, shopping_list, shopping_list_quantity)
-                VALUES(:pantry_id, :name, :quantity, :brand, :barcode, :expiration, :shopping_list, :shopping_list_quantity)';
+     $query = 'INSERT INTO items(pantry_id, name, quantity, brand, expiration, shopping_list, shopping_list_quantity)
+                VALUES(:pantry_id, :name, :quantity, :brand, :expiration, :shopping_list, :shopping_list_quantity)';
       $statement = $db->prepare($query);
       $statement->bindValue(':pantry_id', $pantry_id);
       $statement->bindValue(':name', $name);
       $statement->bindValue(':quantity', $quantity);
       $statement->bindValue(':brand', $brand);
-      $statement->bindValue(':barcode', $barcode);
       $statement->bindValue(':expiration', $expiration);
       $statement->bindValue(':shopping_list', $shopping_list);
       $statement->bindValue(':shopping_list_quantity', $shopping_list_quantity);
